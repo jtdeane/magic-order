@@ -2,15 +2,15 @@ package ws.cogito.magic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 
 @SpringBootApplication
-@EnableCaching
-public class Application {	
+public class Application extends SpringBootServletInitializer {	
 
     @Bean
     public EhCacheCacheManager ehCacheCacheManager() {
@@ -27,6 +27,11 @@ public class Application {
 
         return cacheManagerFactoryBean;
     }
+    
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }    
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

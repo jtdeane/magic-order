@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,12 +35,18 @@ public class OrderProcessingController {
 	/**
 	 * Create an order
 	 * @param order
+	 * @param response
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "order", method=RequestMethod.POST)
-	public void postOrder (@RequestBody Order order) throws Exception {
+	public void postOrder (@RequestBody Order order, 
+			HttpServletResponse response) throws Exception {
 		
 		logger.debug("Processing Order " + order.getId());
+		
+		//in a production this URL would be generated based on the environment..
+		response.setHeader(HttpHeaders.LOCATION, 
+				"http://localhost:8080/order/" + order.getId());
 		
 		orderRepository.storeOrder(order);
 	}
