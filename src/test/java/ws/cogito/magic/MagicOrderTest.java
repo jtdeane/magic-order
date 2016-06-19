@@ -36,17 +36,6 @@ public class MagicOrderTest {
     static class ContextConfiguration {
     
     	//configure any beans...
-    }
-    
-    @Test
-    public void testHealthCheck() throws Exception {
-    	
-    	String expectedResponse = "All Systems Go";
-    	
-    	ResponseEntity<String> response = restTemplate.getForEntity
-    			("http://localhost:8080/health", String.class);
-    	
-    	assertTrue(response.getBody().equals(expectedResponse));
     }    
     
     @Test

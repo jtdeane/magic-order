@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.6.RELEASE</version>
+        <version>1.3.5.RELEASE</version>
     </parent>
 
     <!-- =========================Project Details=========================== -->
@@ -14,13 +14,13 @@
     <groupId>ws.cogito.magic</groupId>
     <artifactId>magic-order</artifactId>
     <version>1.0.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Magic Order Resource</name>
 
     <properties>
         <java.version>1.8</java.version>
-        <spring.boot.version>1.2.6.RELEASE</spring.boot.version>
-        <spring.version>4.2.1.RELEASE</spring.version>
+        <spring.boot.version>1.3.5.RELEASE</spring.boot.version>
+        <spring.version>4.3.0.RELEASE</spring.version>
         <google-guava.version>18.0</google-guava.version>     
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>      
     </properties>
@@ -43,9 +43,8 @@
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <artifactId>spring-boot-actuator</artifactId>
             <version>${spring.boot.version}</version>
-            <scope>provided</scope>
         </dependency>
        
         <dependency>
@@ -123,6 +122,12 @@
 
     <!-- ======================Build Time Settings========================== -->        
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -78,20 +78,5 @@ public class OrderProcessingController {
 		}
 		
 		return order;
-	}
-	
-	/**
-	 * Simple Health Check
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "health", method=RequestMethod.GET)
-	public String getHealth (HttpServletResponse response) throws Exception {
-		
-		logger.debug("Processing Health Check ");
-		
-	    response.setContentType("text/plain");
-	    response.setCharacterEncoding("UTF-8");
-		
-		return "All Systems Go";
 	}	
 }

@@ -1,7 +1,7 @@
-magic-supplies
+magic-order
 =======================
 
-Built with Java 8+, Spring Boot (1.2.6), Spring (4.2.1), EHCache (2.10.0)
+Built with Java 8+, Spring Boot (1.3.5), Spring (4.3.0), EHCache (2.10.0)
 
 Tested with JUnit (4.12)
 
