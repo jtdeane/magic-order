@@ -10,27 +10,30 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebIntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes={Application.class})
 public class MagicOrderTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger
 			(MagicOrderTest.class);
 	
-	private RestTemplate restTemplate = new TestRestTemplate();
-	
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;	
 	
     @Configuration
     static class ContextConfiguration {
@@ -53,13 +56,13 @@ public class MagicOrderTest {
     	HttpEntity<String> entity = new HttpEntity<String>(json,headers);
 
     	URI actualLocation = restTemplate.postForLocation
-    			("http://localhost:8080/order", entity);
+    			("http://localhost:"+ port + "/order", entity);
     	
     	assertTrue(actualLocation.equals(expectedLocation));
     	
     	//Part II. Retrieve the Order
     	ResponseEntity<String> response = restTemplate.getForEntity
-    			("http://localhost:8080/order/X1351", String.class);
+    			("http://localhost:"+ port + "/order/X1351", String.class);
     	
     	assertTrue(response.getBody().equals(json));
     	
